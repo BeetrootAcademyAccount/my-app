@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/_functions";
+@import "~bootstrap/scss/_variables";
+
+$custom-colors: (
+  "beetroot": #35876f,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import "~bootstrap/scss/bootstrap";
+
+a.active {
+  background-color: lightblue;
+  color: white;
+}

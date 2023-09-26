@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import Main from "./pages/Main";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import {
+  BrowserRouter,
+  NavLink,
+  Route,
+  Routes,
+  Link,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+import RouterLayout from "./pages/RouterLayout";
+import ListLayout from "./pages/ListLayout";
+import Error404 from "./pages/Error404";
+import List, { fetchProducts } from "./pages/List";
+
+import Item, { fetchProductDetails } from "./pages/Item";
+import ErrorPage from "./pages/ErrorPage";
+import Memo from "./pages/Memo";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RouterLayout />}>
+      <Route index element={<Main />} />
+      <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="memo" element={<Memo />} />
+      <Route path="list" element={<ListLayout />} loader={fetchProducts}>
+        <Route index element={<List />} loader={fetchProducts} />
+        <Route
+          path=":id"
+          element={<Item />}
+          loader={fetchProductDetails}
+          errorElement={<ErrorPage />}
+        />
+      </Route>
+      <Route path="*" element={<Error404 />} />
+    </Route>
+  )
+);
+/*
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RouterLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Main />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
+  },
+]);
+*/
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
