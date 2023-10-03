@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import {ThemeContext} from "./RouterLayout";
+import { ThemeContext } from "./RouterLayout";
 
 function Login() {
-
   const theme = useContext(ThemeContext);
   const [user, setUser] = useState({
     username: "",
@@ -12,7 +11,6 @@ function Login() {
   const count = useRef(0);
   const usernameRef = useRef();
   const passwordRef = useRef();
-
 
   const usernameInputChangeHandler = (event) => {
     setUser((prevValue) => {
@@ -36,10 +34,10 @@ function Login() {
     console.log(user);
   };
   function focus(inputField) {
-    if(inputField === "username") {
-      usernameRef.current.focus()
+    if (inputField === "username") {
+      usernameRef.current.focus();
     } else {
-      passwordRef.current.focus()
+      passwordRef.current.focus();
     }
   }
 
@@ -47,7 +45,7 @@ function Login() {
     <div className={theme}>
       <p></p>
       <button onClick={() => focus("username")}>Focus on Username</button>
-      <button onClick={ () => focus("pass")}>Focus on Password</button>
+      <button onClick={() => focus("pass")}>Focus on Password</button>
       <form onSubmit={formSubmit}>
         <div>
           <label htmlFor="username">Username:</label>
